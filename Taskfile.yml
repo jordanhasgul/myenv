@@ -1,0 +1,69 @@
+# To run this, do the following:
+# 1. Install Taskfile by running 'sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin'
+# 2. Run the 'setup-myenv' task by running 'task setup-myenv'
+
+version: '3'
+
+vars:
+  NAME: 'Jordan Hasgul'
+  USER: 'jkhasgul'
+  EMAIL: 'jkhasgul@gmail.com'
+
+tasks:
+
+  
+
+  install-deps:
+    deps: [install-docker, install-go, install-git]
+
+  install-docker:
+    deps: [install-brew]
+    cmds:
+      - brew install --cask docker
+
+  install-go:
+    deps: [install-brew]
+    cmds:
+      - brew install go
+
+  install-git:
+    deps: [install-brew]
+    cmds:
+      - brew install git
+
+  install-brew:
+    deps: [setup-apt]
+    cmds:
+      - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/{{.USER}}/.bashrc
+      - eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      
+  generate-ssh-key:
+    deps: [setup-apt]
+    cmds: 
+      - ssh-keygen -t ed25519 -b 4096 -C "{{.EMAIL}}"
+      
+  generate-gpg-key:
+    deps: [setup-apt]
+    cmds:
+      - gpg --quick-gen-key "{{.NAME}} <{{.EMAIL}}>" rsa4096 default never
+      
+  setup-apt:
+    deps: [grant-root-perms]
+    cmds:
+      - apt update
+      - apt upgrade
+      - apt install -y build-essentials
+      - apt install -y openssh-client
+      - apt install -y gpg
+      - apt install -y curl
+      
+  grant-root-perms:
+    cmds: 
+      - sudo adduser {{.USER}} root
+
+  revoke-root-perms:
+    cmds: 
+      - sudo deluser {{.USER}} root
+   
+      
