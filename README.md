@@ -38,7 +38,7 @@ To setup your environment, follow these steps:
 1. Run the following commands:
 
 ```bash
-> sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 > git clone git@github.com:jordanhasgul/myenv.git
+> /bin/bash -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 > cd myenv && task setup-myenv
 ```
