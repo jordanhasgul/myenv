@@ -11,7 +11,17 @@ To setup your environment, follow these steps:
 > sudo apt install -y build-essentials, curl, git-all, openssh-client, gpg
 ```
 
-### 2. Generate SSH Key
+### 2. Install Task and run the Taskfile.yml
+
+* Run the following commands:
+
+```bash
+> git clone git@github.com:jordanhasgul/myenv.git
+> /bin/bash -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+> cd myenv && task setup-myenv
+```
+
+### 3. Generate SSH Key
 
 * Run the following commands:
 
@@ -20,9 +30,9 @@ To setup your environment, follow these steps:
 > cat ~/.ssh/id_ed225519.pub
 ```
 
-* Add the SSH key here: https://github.com/settings/ssh/new. 
+* Add the SSH key [here](https://github.com/settings/ssh/new). 
 
-### 3. Generate GPG Key
+### 4. Generate GPG Key
 
 * Run the following commands:
 
@@ -31,14 +41,12 @@ To setup your environment, follow these steps:
 > gpg --armor --export $(gpg --list-secret-keys --keyid-format=long | grep "^sec" | sed -E 's#^sec[[:space:]]+[^/]+/([^[:space:]]+).*#\1#g')
 ```
 
-* Add the GPG key here: https://github.com/settings/gpg/new.
+* Add the GPG key [here](https://github.com/settings/gpg/new).
+* Add the following into your .gitconfig:
 
-### 4. Install Task and run the Taskfile.yml
-
-* Run the following commands:
-
-```bash
-> git clone git@github.com:jordanhasgul/myenv.git
-> /bin/bash -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
-> cd myenv && task setup-myenv
+```
+[core]
+  ...
+  signingkey = <insert-gpg-key-here>
+  ...
 ```

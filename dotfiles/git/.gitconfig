@@ -2,3 +2,57 @@
   name = Jordan Hasgul
 	email = jkhasgul@gmail.com
 	
+[url "git@github.com:jordanhasgul"]
+  insteadOf = "jh/"
+  
+[url "git@github.com:"]
+  insteadOf = "gh:"
+	
+[core]
+  editor = nvim
+  compression = 9
+  preloadindex = true
+  whitespace = error
+  
+[alias]
+  diff = diff --output-indicator-old=' ' --output-indicator-new=' '
+  log = --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n'
+
+[status]
+  branch = true
+  showStash = true
+  showUntrackedFiles = all
+
+[commit]
+  gpgSign = true
+
+[push]
+  default = current
+  autoSetupRemote = true
+  
+[pull]
+  default = current
+  rebase = true
+
+[rebase]
+  autoStash = true
+  missingCommitsCheck = warn
+
+[log]
+  abbrevCommit = true
+  graphColors = blue,yellow,cyan,magenta,green,red
+
+[diff]
+  renames = copies
+  context = 3
+  interHunkContext = 10
+  
+[pager]
+  diff = diff-so-fancy | $PAGER
+  
+[diff-so-fancy]
+  markEmptyLines = false
+
+
+  
+
