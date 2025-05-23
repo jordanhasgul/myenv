@@ -10,10 +10,20 @@ tasks:
   setup-deps:
     deps: [install-deps]
     cmds:
-      - 
+      - |
+        set -e
+        cd dotfiles
+        for dir in *; do
+          stow -t $HOME --adopt $dir
+        done
 
   install-deps:
-    deps: [install-docker, install-go, install-neovim, install-tmux, install-zsh, install-stow, install-git]
+    deps: [install-kubectl, install-docker, install-go, install-github, install-neovim, install-tmux, install-zsh, install-ghostty, install-stow, install-git]
+
+   install-kubectl:
+    deps: [install-brew]
+    cmds:
+      - brew install kubernetes-cli
 
   install-docker:
     deps: [install-brew]
@@ -24,6 +34,12 @@ tasks:
     deps: [install-brew]
     cmds:
       - brew install go
+
+        
+  install-github:
+    deps: [install-brew]
+    cmds:
+      - brew install --cask github
 
   install-neovim:
     deps: [install-brew]
@@ -42,6 +58,11 @@ tasks:
       - sudo sh -c "echo $(which zsh) >> /etc/shells"
       - sudo chsh -s $(which zsh) {{.USER}}
       
+  install-ghostty:
+    deps: [install-brew]
+    cmds:
+      - brew install --cask ghostty
+  
   install-stow:
     deps: [install-brew]
     cmds:
